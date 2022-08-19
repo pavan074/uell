@@ -1,0 +1,7 @@
+{
+  "name": "AppUell",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
