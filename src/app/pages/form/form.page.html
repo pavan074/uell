@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{activatedRoute.snapshot.paramMap.get('categoria')}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  [fullscreen]="true" style="text-align: center">    
+
+  <!-- <ion-header class="header2 " collapse="condense">
+    <div>
+      <img src="../../../assets/img/logo_black.png">
+      <div style="display: flex" (click)="back()" class="backIcon">
+        <ion-icon name="arrow-back"></ion-icon>
+      </div>
+      <h1 class="dayListTitle">{{activatedRoute.snapshot.paramMap.get('categoria')}}</h1>
+    </div>
+  </ion-header> -->
+
+  <div class="mainTitle">
+    <!-- <h5>Parlaci della tua</h5> -->
+    <!-- <h1 class="mt-0">Categorie</h1> -->
+    <h4>Rispondi alla domanda n.{{+activatedRoute.snapshot.paramMap.get('index') + 1}} di {{dataSet.length}}</h4>
+  </div> 
+ 
+  <div>      
+    <form [formGroup]="form" (keydown.enter)="$event.preventDefault()"> 
+
+      <ion-item>
+        <ion-label position="floating" class="ion-text-wrap"><span style="font-size: 20px;">{{data.questionText}}</span></ion-label>
+        <ion-select [formControlName]="data.num" placeholder="Seleziona un valore">
+          <ion-select-option *ngFor="let option of data.answerAllowedVals" value="{{option.value}}">{{option.value}}</ion-select-option>
+        </ion-select>
+      </ion-item>       
+
+      
+      <!-- <div>{{data.questionText}}</div>
+      <ion-item>
+        <ion-select [formControlName]="data.num" placeholder="Seleziona un valore">
+          <ion-select-option *ngFor="let option of data.answerAllowedVals" value="{{option.value}}">{{option.value}}</ion-select-option>
+        </ion-select>
+      </ion-item> -->
+      
+      <!-- <ion-item *ngFor="let item of data">
+        <ion-label>{{item.questionText}}</ion-label>
+        <ion-toggle slot="end"></ion-toggle>
+      </ion-item> -->
+      
+    </form>
+  </div>   
+
+  <br><br>
+ 
+  <div>
+    <div style="display: flex;">
+      <ion-button [disabled]="+activatedRoute.snapshot.paramMap.get('index') <= 0" (click)="previousStep()" shape="round" color="button2"  class="plankBtn"><ion-icon name="arrow-back"></ion-icon></ion-button>
+      <ion-button [disabled]="+activatedRoute.snapshot.paramMap.get('index') >= dataSet.length - 1" (click)="nextStep()" shape="round" color="button2"  class="plankBtn"><ion-icon name="arrow-forward"></ion-icon></ion-button>
+    </div>
+  </div> 
+
+  <!-- <pre>{{data | json}}</pre> -->
+  <!-- <pre>{{nextQuestion | json}}</pre> -->
+  <!-- <pre>{{form.value | json}}</pre> -->
+  
+</ion-content>

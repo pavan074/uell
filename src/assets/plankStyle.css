@@ -1,0 +1,244 @@
+.header1 {
+  color: #0083BB;
+  font-size: 14px;
+}
+.mainTitle {
+  margin-bottom: 75px;
+  margin-top: 20px;
+}
+.mainTitle h5 {
+  font-size: 16px;
+  color: #8D97A8;
+  margin-bottom: 0;
+}
+.mainTitle h1 {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 70px;
+  margin-top: 0;
+}
+.mainTitle h4 {
+  font-size: 16px;
+  margin-top: 0;
+}
+.plankBtn {
+  min-height: 52px;
+  width: 80%;
+  font-size: 14px;
+}
+.btnSelected {
+  --ion-color-base: var(--ion-color-button1);
+}
+.plankPar {
+  padding: 30px;
+  font-size: 13px;
+  color: #8D97A8 !important;
+}
+.plankBtnAction {
+  /*     width: 80%;
+    min-height: 75px;
+    margin-bottom: 76px;
+    position: relative;
+    bottom: 30px; */
+  width: 300px;
+  min-height: 75px;
+  margin-bottom: 76px;
+  position: absolute;
+  bottom: 25px;
+  left: auto;
+  right: auto;
+  margin-left: -150px;
+}
+.header {
+  padding-top: 40px;
+}
+.header2 {
+  background-image: url("../assets/img/Header1.png");
+  min-height: 256px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+.dayListTitle {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 35px;
+  max-width: 70%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+}
+.dayPlankContent {
+  --ion-background-color: #E5E5E5 !important;
+  margin-top: 23px !important;
+}
+.dayPlankContent .plankDay {
+  width: 80%;
+  min-height: 70px;
+  background-color: white;
+  border-radius: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 22px;
+}
+.dayItem {
+  display: flex !important;
+  justify-content: space-between;
+  align-content: center;
+  padding-left: 22px;
+  padding-right: 22px;
+}
+.dayItem .circle {
+  font-size: 45px !important;
+  display: flex;
+  align-self: center;
+}
+.dayItem .title {
+  display: flex;
+  align-self: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+.backIcon {
+  font-size: 49px;
+  position: absolute;
+  left: 11px;
+  color: black;
+}
+.exName {
+  text-transform: uppercase !important;
+  font-size: 12px;
+}
+.exTime {
+  color: #8D97A8 !important;
+  font-size: 12px;
+}
+.card {
+  margin-right: 24px;
+  background-color: white;
+  margin-left: 24px;
+  border-radius: 25px;
+  margin-top: 30px;
+  min-height: 545px;
+}
+.card ion-item {
+  --border-color: #EAEEF1;
+  --background: white;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  justify-content: center;
+  min-height: 100px;
+}
+.exerciceList {
+  padding-bottom: 50px;
+  background: white;
+}
+.exerciceTitle {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  font-weight: bold;
+}
+.progressBar {
+  width: 88%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 50px;
+  border-radius: 25px;
+}
+.exerciseToolbar {
+  margin-bottom: 20px;
+}
+.exerciseToolbar h1 {
+  font-size: 42px;
+  font-weight: bold;
+}
+.setL {
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 20px;
+}
+.setR {
+  font-weight: bold;
+  font-size: 20px;
+  margin-right: 20px;
+}
+.exListHeader {
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
+}
+.sexImgsWrapper {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.circlePerc {
+  font-weight: bold;
+  color: black !important;
+}
+.restore {
+  display: flex;
+  align-self: center;
+  font-size: 12px;
+  font-weight: bold;
+  font-size: 29px;
+}
+.exerciceImg img {
+  width: 75%;
+}
+.exerciceImg .exerciceText {
+  padding-left: 22px;
+  padding-right: 22px;
+  font-size: 12px;
+  color: #8D97A8;
+}
+.exerciceName {
+  padding: 10px;
+  font-weight: bold;
+  padding-left: 22px;
+  padding-top: 22px;
+  text-transform: uppercase;
+  text-align: start;
+}
+.startscreen {
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #071F28;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+}
+.startscreen .logo {
+  margin: auto;
+}
+.startscreen p {
+  color: #8D97A8;
+  padding: 50px;
+}
+.socialDiv {
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-items: center; */
+  height: 100%;
+  color: white;
+  /* flex-direction: row; */
+  width: 100%;
+  padding-top: 30%;
+  text-align: center;
+}
+.socialDiv .icon {
+  font-size: 52px;
+  margin: 10px;
+}

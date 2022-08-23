@@ -1,41 +1,8 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
-
-
 /** Ionic CSS Variables **/
 :root {
-
-  /**button1**/
-	--ion-color-button1: #0083BB;
-	--ion-color-button1-rgb: 0,131,187;
-	--ion-color-button1-contrast: #ffffff;
-	--ion-color-button1-contrast-rgb: 255,255,255;
-	--ion-color-button1-shade: #0073a5;
-	--ion-color-button1-tint: #1a8fc2;
-    /**button2**/
-    --ion-color-button2: #EAEEF1;
-    --ion-color-button2-rgb: 234,238,241;
-    --ion-color-button2-contrast: #000000;
-    --ion-color-button2-contrast-rgb: 0,0,0;
-    --ion-color-button2-shade: #ced1d4;
-    --ion-color-button2-tint: #ecf0f2;
-      /**button3**/
-      --ion-color-button3: #071F28;
-      --ion-color-button3-rgb: 7,31,40;
-      --ion-color-button3-contrast: #ffffff;
-      --ion-color-button3-contrast-rgb: 255,255,255;
-      --ion-color-button3-shade: #061b23;
-      --ion-color-button3-tint: #20353e;
-      /**button4**/
-      --ion-color-button4: #0083BB;
-      --ion-color-button4-rgb: 7,31,40;
-      --ion-color-button4-contrast: #ffffff;
-      --ion-color-button4-contrast-rgb: 255,255,255;
-      --ion-color-button4-shade: #061b23;
-      --ion-color-button4-tint: #20353e;
-
-
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -85,7 +52,7 @@
   --ion-color-danger-tint: #ed576b;
 
   /** dark **/
-  --ion-color-dark: #ffffff;
+  --ion-color-dark: #222428;
   --ion-color-dark-rgb: 34, 36, 40;
   --ion-color-dark-contrast: #ffffff;
   --ion-color-dark-contrast-rgb: 255, 255, 255;
@@ -186,10 +153,10 @@
    */
 
   .ios body {
-    --ion-background-color: #ffffff;
+    --ion-background-color: #000000;
     --ion-background-color-rgb: 0,0,0;
 
-    --ion-text-color: #071F28;
+    --ion-text-color: #ffffff;
     --ion-text-color-rgb: 255,255,255;
 
     --ion-color-step-50: #0d0d0d;
@@ -230,7 +197,7 @@
    */
 
   .md body {
-    --ion-background-color: #ffffff;
+    --ion-background-color: #121212;
     --ion-background-color-rgb: 18,18,18;
 
     --ion-text-color: #ffffff;
@@ -258,7 +225,7 @@
     --ion-color-step-900: #e7e7e7;
     --ion-color-step-950: #f3f3f3;
 
-    --ion-item-background: #ffffff;
+    --ion-item-background: #1e1e1e;
 
     --ion-toolbar-background: #1f1f1f;
 
@@ -266,37 +233,4 @@
 
     --ion-card-background: #1e1e1e;
   }
-}
-
-.ion-color-button1 {
-	--ion-color-base: var(--ion-color-button1);
-	--ion-color-base-rgb: var(--ion-color-button1-rgb);
-	--ion-color-contrast: var(--ion-color-button1-contrast);
-	--ion-color-contrast-rgb: var(--ion-color-button1-contrast-rgb);
-	--ion-color-shade: var(--ion-color-button1-shade);
-	--ion-color-tint: var(--ion-color-button1-tint);
-}
-.ion-color-button2 {
-	--ion-color-base: var(--ion-color-button2);
-	--ion-color-base-rgb: var(--ion-color-button2-rgb);
-	--ion-color-contrast: var(--ion-color-button2-contrast);
-	--ion-color-contrast-rgb: var(--ion-color-button2-contrast-rgb);
-	--ion-color-shade: var(--ion-color-button2-shade);
-	--ion-color-tint: var(--ion-color-button2-tint);
-}
-.ion-color-button3 {
-	--ion-color-base: var(--ion-color-button3);
-	--ion-color-base-rgb: var(--ion-color-button3-rgb);
-	--ion-color-contrast: var(--ion-color-button3-contrast);
-	--ion-color-contrast-rgb: var(--ion-color-button3-contrast-rgb);
-	--ion-color-shade: var(--ion-color-button3-shade);
-	--ion-color-tint: var(--ion-color-button3-tint);
-}
-.ion-color-button4 {
-	--ion-color-base: var(--ion-color-button4);
-	--ion-color-base-rgb: var(--ion-color-button4-rgb);
-	--ion-color-contrast: var(--ion-color-button4-contrast);
-	--ion-color-contrast-rgb: var(--ion-color-button4-contrast-rgb);
-	--ion-color-shade: var(--ion-color-button4-shade);
-	--ion-color-tint: var(--ion-color-button4-tint);
 }

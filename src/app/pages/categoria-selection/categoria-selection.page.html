@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{activatedRoute.snapshot.paramMap.get('qArea')}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  [fullscreen]="true" style="text-align: center">    
+
+  <!-- <ion-header class="header2 " collapse="condense">
+    <div>
+      <img src="../../../assets/img/logo_black.png">
+      <div style="display: flex" (click)="back()" class="backIcon">
+        <ion-icon name="arrow-back"></ion-icon>
+      </div>
+      <h1 class="dayListTitle">{{activatedRoute.snapshot.paramMap.get('qArea')}}</h1>
+    </div>
+  </ion-header> -->
+
+  <div class="mainTitle">
+    <!-- <h5>Parlaci della tua</h5> -->
+    <!-- <h1 class="mt-0">Categorie</h1> -->
+    <h4>Seleziona la categoria</h4>
+  </div> 
+ 
+  <div>
+    <ion-button [routerLink]="['/form', activatedRoute.snapshot.paramMap.get('qArea'), item.categoria, 0]" *ngFor="let item of data" shape="round" color="button2"  class="plankBtn">
+      <div style="display: flex; flex-direction:column">
+        <div style="margin-bottom: 5px;">{{item.categoria}}</div> 
+        <div style="font-size: 12px; color: gray;">({{item.nReply}} risposte di {{item.nQuestion}} domande)</div>
+      </div>
+    </ion-button>
+  </div> 
+
+  <!-- <pre>{{data | json}}</pre> -->
+  
+</ion-content>
