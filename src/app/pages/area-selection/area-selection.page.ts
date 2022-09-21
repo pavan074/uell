@@ -53,7 +53,16 @@ export class AreaSelectionPage implements OnInit {
 
   /* nextStep(){
     this.navController.navigateForward(['/day-list', this.Selection]);
-  } */
+  } */ 
+
+  navigate(item: any) {
+    //this.navController.navigateBack(['/area-selection', this.activatedRoute.snapshot.paramMap.get('userId')]);
+    if(item.qArea == 'Nutrizione'){   
+      this.navController.navigateBack(['/form', this.activatedRoute.snapshot.paramMap.get('userId'), item.qArea, 'null', 0]);
+    }else{      
+      this.navController.navigateBack(['/categoria-selection', this.activatedRoute.snapshot.paramMap.get('userId'), item.qArea]);
+    }
+  }
 
   back() {
     this.navController.navigateBack(['/']);

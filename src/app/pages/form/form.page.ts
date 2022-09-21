@@ -53,7 +53,11 @@ export class FormPage implements OnInit {
       //console.log(data);
 
       //Data
-      this.dataSet = data.filter(x=> x.qArea == this.qArea && x.categoria == this.categoria);
+      if(this.categoria != 'null'){
+        this.dataSet = data.filter(x=> x.qArea == this.qArea && x.categoria == this.categoria);
+      }else{
+        this.dataSet = data.filter(x=> x.qArea == this.qArea);
+      }
       this.data = this.dataSet[this.index];
   
       //Form
@@ -81,7 +85,7 @@ export class FormPage implements OnInit {
       console.log(data[this.data.num]);
       let value: any = {
         
-        id: this.data.num,
+        id: this.data.id,
         respText: data[this.data.num],
         eseguito: null,
         risultato: null,
@@ -104,7 +108,11 @@ export class FormPage implements OnInit {
   }
 
   back() {
-    this.navController.navigateBack(['/categoria-selection', this.qArea]);
+    if(this.categoria != 'null'){ 
+      this.navController.navigateBack(['/categoria-selection', this.activatedRoute.snapshot.paramMap.get('userId'), this.qArea]);
+    }else{      
+      this.navController.navigateBack(['/area-selection', this.activatedRoute.snapshot.paramMap.get('userId')]);
+    }
   }
   
 }

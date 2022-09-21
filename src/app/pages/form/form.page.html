@@ -4,9 +4,12 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <!-- <ion-back-button></ion-back-button> -->   
+      <ion-button (click)="back()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>{{activatedRoute.snapshot.paramMap.get('categoria')}}</ion-title>
+    <ion-title>{{activatedRoute.snapshot.paramMap.get('categoria') != 'null' ? activatedRoute.snapshot.paramMap.get('categoria'): activatedRoute.snapshot.paramMap.get('qArea')}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -68,6 +71,7 @@
   <ion-button *ngIf="+activatedRoute.snapshot.paramMap.get('index') + 1 == dataSet.length" [routerLink]="['/categoria-selection/', activatedRoute.snapshot.paramMap.get('userId'), activatedRoute.snapshot.paramMap.get('qArea')]" shape="round" color="button4" class="plankBtnAction">Torna a lista categoria</ion-button> 
 
   <!-- <pre>{{data | json}}</pre> -->
+  <!-- <pre>{{dataSet | json}}</pre> -->
   <!-- <pre>{{nextQuestion | json}}</pre> -->
   <!-- <pre>{{form.value | json}}</pre> -->
   

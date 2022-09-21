@@ -49,11 +49,14 @@ export class CategoriaSelectionPage implements OnInit {
     this.activatedRoute.data.pipe(map(x=>x.data)).subscribe(data => {
       //console.log(data);      
       this.data = this.dataService.getCategoria(data, this.qArea);
+      /* if(this.qArea == 'Nutrizione'){
+        this.data = data.filter(x=> x.qArea == this.qArea);
+      } */
     });
   }  
 
   back() {
-    this.navController.navigateBack(['/area-selection']);
+    this.navController.navigateBack(['/area-selection', this.activatedRoute.snapshot.paramMap.get('userId')]);
   }
   
 }
