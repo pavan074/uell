@@ -29,7 +29,7 @@
   </div> 
  
   <div>
-    <ion-button [routerLink]="['/form', activatedRoute.snapshot.paramMap.get('qArea'), item.categoria, 0]" *ngFor="let item of data" shape="round" color="button2"  class="plankBtn">
+    <ion-button [routerLink]="['/form', activatedRoute.snapshot.paramMap.get('userId'), activatedRoute.snapshot.paramMap.get('qArea'), item.categoria, 0]" *ngFor="let item of data" shape="round"  [color]="item.nReply == item.nQuestion ? 'primary' : 'button2'"  class="plankBtn">
       <div style="display: flex; flex-direction:column">
         <div style="margin-bottom: 5px;">{{item.categoria}}</div> 
         <div style="font-size: 12px; color: gray;">({{item.nReply}} risposte di {{item.nQuestion}} domande)</div>

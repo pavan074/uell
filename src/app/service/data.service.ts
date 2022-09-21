@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import * as _data from "../../assets/data.json";
+//import * as _data from "../../assets/data.json";
 
 @Injectable({
     providedIn: 'root'
@@ -7,6 +7,14 @@ import * as _data from "../../assets/data.json";
 export class DataService {
     
     constructor() {} 
+
+    getStatus(data: any[]): any{
+        return { 
+            status: data.filter(x=> x.respText).length >= data.length ? true : false,
+            nQuestion: data.length,
+            nReply: data.filter(x=> x.respText).length
+        }; 
+    } 
 
     getArea(data: any[]): any[]{
         var resp: any[] = [];

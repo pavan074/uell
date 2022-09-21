@@ -1,0 +1,142 @@
+<ion-header>
+  <ion-toolbar translucent="true">
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="back()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="greyText">
+      ACTIVATE
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding register-supplier-page basePage formPage">
+      
+  <form [formGroup]="form" (ngSubmit)="submit()" *ngIf="form" novalidate class="fullWidth ion-padding">   
+
+  <h2 class="title">Attiva il tuo profilo</h2>
+  <ion-list lines="full" class="ion-no-margin ion-no-padding">
+
+    <ion-item *ngFor="let item of formList">
+
+      <ng-container *ngIf="item.inputType == 'text' || item.inputType == 'email' || item.inputType == 'password' || item.inputType == 'number'">
+        <ion-label position="stacked" class="greyText">{{item.displayName}} <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input placeholder="" [formControlName]="item.ctrlName" [type]="item.inputType"></ion-input>
+        <ng-container>
+            <div *ngIf="form.get(item.ctrlName).invalid && (form.get(item.ctrlName).dirty || form.get(item.ctrlName).touched)" class="error">
+                <p>{{formGetError(item.ctrlName)}}</p>
+            </div>
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="item.inputType == 'date'">
+        <ion-label position="stacked" class="greyText">{{item.displayName}} <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input
+          value="{{ form.get('dataNascita').value | date: 'dd.MM.yyyy' }}"
+          id="dataNascita"
+          class="ion-text-end"
+        ></ion-input>
+        <ion-popover trigger="dataNascita" size="cover">
+          <ng-template>
+            <ion-datetime presentation="date" [formControlName]="item.ctrlName" locale="it-IT"></ion-datetime>
+          </ng-template>
+        </ion-popover>
+      </ng-container>
+      
+      <ng-container *ngIf="item.inputType == 'select'">
+        <ion-label position="stacked" class="greyText">{{item.displayName}} <ion-text color="danger">*</ion-text></ion-label>
+        <ion-select [formControlName]="item.ctrlName" placeholder="Seleziona un valore">
+          <!-- <ion-select-option *ngFor="let option of item.options" value="{{option.val}}">{{option.title}}</ion-select-option> -->
+          <ion-select-option *ngFor="let option of item.$optionsAsync | async" value="{{option.val}}">{{option.title}}</ion-select-option>
+        </ion-select>
+      </ng-container>
+      
+    </ion-item> 
+
+    <br><br>
+    
+    <!-- <div style="display: flex; align-items: center;">
+      <ion-checkbox slot="start" formControlName="privacy"></ion-checkbox>
+      <span style="color: gray; font-size: 13px; margin-left: 5px;">Ho preso visione e accetto l'informativa sulla <span (click)="getPrivacy()" style="color: #3f51b5;">Privacy Policy</span></span>
+    </div> -->
+    
+    <!-- <div style="display: flex; align-items: center;">
+      <div style="min-width: 20px;">
+        <ion-checkbox slot="start" formControlName="privacy_1">
+      </ion-checkbox></div>
+      <div style="min-width: 10px;"></div>
+      <span style="color: gray; font-size: 13px; margin-left: 5px;">Ho letto attentamente ed approvo le <a href="https://prod-bakeup-api.metodo-solutions.com/Files/condizioni_generali.pdf" target="_blank" style="color: #3f51b5;">condizioni generali</a>. Ho letto attentamente  <a href="https://prod-bakeup-api.metodo-solutions.com/Files/privacy_client.pdf" target="_blank" style="color: #3f51b5;">l'informativa privacy</a> e consento al trattamento dei miei dati personali.</span>
+    </div>
+
+    <br>
+    
+    <div style="display: flex; align-items: center;">
+      <div style="min-width: 20px;">
+        <ion-checkbox slot="start" formControlName="privacy_2">
+      </ion-checkbox></div>
+      <div style="min-width: 10px;"></div>
+      <span style="color: gray; font-size: 13px; margin-left: 5px;"> Ho letto attentamente ed approvo specificamente: parte I lettera C (sospensione dell’account), E (esclusione di responsabilità), I (cessione), J (foro competente)</span>
+    </div> -->
+
+    <br>
+
+    <!-- <br> -->
+
+    <!-- <div style="color: gray; font-size: 8px; max-height: 200px; overflow-y: scroll; background-color: #f3f3f3; padding: 10px;">
+      
+      <p><strong><u>INFORMATIVA <em>POLICY</em> &ndash; REGISTRAZIONE CLIENTE CONSUMATORE</u></strong></p>
+      <p>&nbsp;</p>
+      <ol>
+      <li><strong>TITOLARE DEL TRATTAMENTO</strong></li>
+      </ol>
+      <p>La presente informativa &egrave; resa da<strong> Il Granaio delle Idee S.r.l. </strong>(P.IVA 03331930283 &ndash; PEC <em>ilgranaiodelleidee@pec.it &ndash;</em> <em>e-mail</em> <em>info@ilgranaiodelleidee.com),</em> con sede legale a Maser&agrave; di Padova (35020 &ndash; PD), Via Trento n. 7.</p>
+      <ol start="2">
+      <li><strong>DATI PERSONALI E FINALIT&Agrave; DEL TRATTAMENTO</strong></li>
+      </ol>
+      <p>2.1 In conformit&agrave; alle disposizioni del Reg. UE 2016/679, del D.Lgs. 196/2003 (cos&igrave; come modificato dal D.Lgs. 101/2018), dei Provvedimenti e indicazioni dell&rsquo;Autorit&agrave; Garante e, in generale, della normativa in materia di riservatezza dei dati personali, attraverso la registrazione dell&rsquo;Interessato come cliente consumatore nella presente applicazione, il Titolare tratter&agrave; dati anagrafici identificativi dell&rsquo;utente (nome e cognome). I suddetti dati raccolti attraverso l&rsquo;apposito <em>form </em>di registrazione sono funzionali all&rsquo;utilizzo dell&rsquo;applicazione da parte del cliente consumatore interessato.</p>
+      <p>2.2 Con riferimento alla geolocalizzazione dell&rsquo;Interessato al fine di individuare la posizione di quest&rsquo;ultimo rispetto ai panifici registrati, il Titolare non tratta il relativo dato nemmeno indirettamente, limitandosi a rinviare l&rsquo;utente Interessato a programmi gestiti da soggetti terzi che forniscono in proprio la relativa funzionalit&agrave;.</p>
+      <ol start="3">
+      <li><strong>MODALITA&rsquo; E BASI GIURIDICHE DEL TRATTAMENTO</strong></li>
+      </ol>
+      <p>3.1 Il trattamento pu&ograve; essere svolto con o senza l&rsquo;ausilio di strumenti elettronici o comunque automatizzati, sempre in conformit&agrave; alle previsioni della normativa in materia di riservatezza dei dati personali, con particolare riferimento al disposto dell&rsquo;art. 32 Reg. UE 2016/679 che impone l&rsquo;adozione di misure tecnico/organizzative adeguate al rischio. Il trattamento &egrave; svolto dai singoli incaricati del trattamento specificamente nominati/autorizzati e/o dei diversi responsabili del trattamento specificamente nominati, in ogni caso sotto la supervisione e secondo le indicazioni del Titolare.</p>
+      <p>3.2 La base giuridica del trattamento &egrave; costituita dallo specifico consenso dell&rsquo;Interessato (art. 6 Reg. UE 2016/679 lett. A).</p>
+      <ol start="4">
+      <li><strong>CONFERIMENTO DEI DATI</strong></li>
+      </ol>
+      <p>Il conferimento dei dati personali comuni di cui alla presente informativa, relativamente ai dati personali raccolti attraverso il <em>form</em> non &egrave; obbligatorio (n&eacute; contrattualmente, n&eacute; legalmente) ma &egrave; necessario/funzionale per fruire dell&rsquo;applicazione. L&rsquo;eventuale rifiuto da parte dell&rsquo;interessato di conferire i relativi dati personali, o la comunicazione errata di tali dati, comporta l&rsquo;impossibilit&agrave; di utilizzare l&rsquo;applicazione.</p>
+      <ol start="5">
+      <li><strong>TERMINE DEL TRATTAMENTO</strong></li>
+      </ol>
+      <p>I dati saranno conservati fino al termine per qualsiasi ragione del servizio (ivi compresa la cancellazione dell&rsquo;Interessato dall&rsquo;applicazione). Per l&rsquo;Interessato sar&agrave; possibile revocare in qualsiasi momento il consenso con conseguente immediata interruzione del trattamento dei dati conferiti. Nel caso in cui il consenso fosse revocato, l&rsquo;applicazione non sar&agrave; pi&ugrave; accessibile all&rsquo;utente interessato.</p>
+      <ol start="6">
+      <li><strong>COMUNICAZIONE E DIFFUSIONE</strong></li>
+      </ol>
+      <p>I dati personali possono essere comunicati per le suddette finalit&agrave; a soggetti pubblici/privati per cui la comunicazione &egrave; funzionale per l&rsquo;esecuzione del contratto (ivi compresi i panifici in cui l&rsquo;utente interessato effettuasse eventuali prenotazioni). I dati personali non saranno soggetti a diffusione.</p>
+      <ol start="7">
+      <li><strong>DIRITTI DELL&rsquo;INTERESSATO</strong></li>
+      </ol>
+      <p>Il Reg. UE 2016/679 conferisce all&rsquo;interessato specifici diritti, tra cui quello di accesso ai propri dati personali e la loro messa a disposizione in forma intellegibile; l&rsquo;interessato ha inoltre diritto di ottenere l&rsquo;aggiornamento, la rettificazione (se erronei), l&rsquo;integrazione (se incompleti) o la cancellazione dei dati (in caso di trattamento illecito), la portabilit&agrave; dei dati (diritto di ricevere o far trasmettere i dati ad altro titolare in formato strutturato, di uso comune e leggibile da dispositivo automatico) revoca del consenso (se base giuridica per il trattamento) la trasformazione in forma anonima o il blocco/limitazione dei dati trattati in violazione di legge; l&rsquo;interessato ha diritto di opporsi, per motivi legittimi, al trattamento dei dati. Con riferimento al trattamento dei dati conferiti, nel caso in cui l&rsquo;Interessato dovesse individuare delle violazioni della normativa in materia di privacy, avr&agrave; diritto di sporgere reclamo al Garante della Privacy. L&rsquo;Interessato potr&agrave; esercitare i suoi diritti facendone richiesta al Titolare (anche richiedendo di ricevere la lista completa dei Responsabili nominati).</p>
+    </div> -->
+
+  </ion-list>
+
+  <div class="ion-padding">
+    <ion-button shape="round" type="submit" expand="full" class="primaryBtn" [disabled]="disabled()">Conferma e prosegui</ion-button>
+  </div>
+
+</form>
+
+<!-- <pre *ngIf="form">{{form.value | json}}</pre> -->
+<!-- <pre *ngIf="form">{{formGetAllErrors(form) | json}}</pre> -->
+  
+  
+
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="back()" class="backBtn primaryBtn" routerDirection='back'>
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

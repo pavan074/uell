@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar translucent="true">
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="back()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+    <ion-title class="greyText">
+      ACCEDI
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="login-supplier-page basePage formPage">
+
+  <!-- <pre>{{form.valid}}</pre> -->
+
+  <form class="fullWidth ion-padding ion-margin" (ngSubmit)="submit()" [formGroup]="form">
+
+      <!--onsubmit="processForm(event)"-->
+      <h2 class="title">Accedi</h2>
+
+      <ion-list lines="full" class="ion-no-margin ion-no-padding">
+
+        <ion-item>
+          <ion-label position="stacked" class="greyText">EMAIL <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input formControlName="username" type="text" autofocus></ion-input>
+        </ion-item>   
+        <div>
+            <ng-container>
+                <div *ngIf="form.get('username').invalid && (form.get('username').dirty || form.get('username').touched)" class="error">
+                      <p>{{formGetError('username')}}</p>
+                    </div>
+            </ng-container>
+        </div>
+
+        <ion-item>
+          <ion-label position="stacked" class="greyText">PASSWORD <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input formControlName="password" type="password"></ion-input>
+        </ion-item> 
+        <div>
+            <ng-container>
+                <div *ngIf="form.get('password').invalid && (form.get('password').dirty || form.get('password').touched)" class="error">
+                      <p>{{formGetError('password')}}</p>
+                    </div>
+            </ng-container>
+        </div>
+
+      </ion-list>
+
+      <div class="ion-padding-top ion-padding-bottom">
+        <ion-button shape="round" type="submit" expand="full" class="primaryBtn ion-margin-top" [disabled]="!form.valid">Accedi</ion-button>
+      </div>
+  
+      <div class="ion-padding-start ion-padding-top">
+        <ion-label class="greyText">NON RIESCI AD ACCEDERE? </ion-label>
+      </div>
+  
+      <div class="ion-padding-start ion-padding-bottom">
+        <span [routerLink]="['/password-recovery-supplier']">Recupera credenziali</span>
+      </div>
+      <hr />
+
+  </form>
+
+
+  <form class="fullWidth ion-padding ion-margin">
+      <div class="ion-padding-top">
+        <h2 class="title">Nessun account?</h2>
+      </div>
+      <div class="ion-padding-bottom">
+        <ion-button [routerLink]="['/signin']" shape="round" type="submit" expand="full" class="primaryBtn ion-margin-top" >Registrati</ion-button>
+      </div>
+      <!-- <div class="ion-padding-bottom">
+        <ion-button [routerLink]="['/signin-supplier/create']" shape="round" type="submit" expand="full" class="primaryBtn ion-margin-top" >Registrati come panificio</ion-button>
+      </div> -->
+
+  </form>
+
+</ion-content>

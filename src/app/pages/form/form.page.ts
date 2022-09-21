@@ -1,10 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Injectable, Pipe, PipeTransform } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Router, ActivatedRoute, Params, ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { Observable, forkJoin, from, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, filter, merge, concatMap, flatMap, delay  } from 'rxjs/operators';
 import { FormBuilder, FormGroup, FormArray, FormControl, AbstractControl, Validators, ValidatorFn } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, map, filter } from 'rxjs/operators';
+import { XhrService } from '../../module/shared/service/xhr.service';
+import { LoaderService } from 'src/app/service/loader.service';
 import { DataService } from 'src/app/service/data.service';
-import * as _data from '../../../assets/data/questionario.json';
+//import * as _data from '../../../assets/data/questionario.json';
+
+
+
+@Injectable({providedIn: 'root'})
+export class FormService implements Resolve<any> {
+  constructor(private loaderService: LoaderService, private xhrService: XhrService) { }
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    let userId = route.params.userId;
+    return this.xhrService.get(this.xhrService.getWebApi('Main').concat('Answers/GetAll?userId=' + userId));
+  }
+}
+
+
 
 @Component({
   selector: 'app-form',
@@ -13,6 +29,7 @@ import * as _data from '../../../assets/data/questionario.json';
 })
 export class FormPage implements OnInit {
   
+  public userId: number;
   public qArea: string;
   public categoria: string;
   public index: number;
@@ -20,25 +37,31 @@ export class FormPage implements OnInit {
   public data: any;
   public form: FormGroup; 
 
-  constructor(private navController: NavController, public activatedRoute: ActivatedRoute, public formBuilder: FormBuilder, private dataService: DataService) {
-
-    //Params
+  constructor(private navController: NavController, public activatedRoute: ActivatedRoute, public formBuilder: FormBuilder, private loaderService: LoaderService, private xhrService: XhrService, private dataService: DataService) {
+    this.userId = +activatedRoute.snapshot.paramMap.get('userId');
     this.qArea = activatedRoute.snapshot.paramMap.get('qArea');
     this.categoria = activatedRoute.snapshot.paramMap.get('categoria');
     this.index = +activatedRoute.snapshot.paramMap.get('index');
-
-    //Data
-    var _dataTemp = _data;
-    this.dataSet = _dataTemp.data.filter(x=> x.qArea == this.qArea && x.categoria == this.categoria);
-    this.data = this.dataSet[this.index];
-
-    //Form
-    this.formInit();
-    this.formSeed();
-    this.formSaveRegistration();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.resolveData();  
+  }
+
+  resolveData(){  
+    this.activatedRoute.data.pipe(map(x=>x.data)).subscribe(data => {
+      //console.log(data);
+
+      //Data
+      this.dataSet = data.filter(x=> x.qArea == this.qArea && x.categoria == this.categoria);
+      this.data = this.dataSet[this.index];
+  
+      //Form
+      this.formInit();
+      this.formSeed();
+      this.formSaveRegistration();
+    });
+  }  
 
   formInit() {      
     let obj={}; 
@@ -55,22 +78,29 @@ export class FormPage implements OnInit {
 
   formSaveRegistration() {
     this.form.valueChanges.pipe(distinctUntilChanged(), debounceTime(0)).subscribe(data => {
-      console.log(data);
+      console.log(data[this.data.num]);
       let value: any = {
-        /* DocumentId : +this.activatedRoute.snapshot.paramMap.get('documentId'),
-        IdSubSection : +this.activatedRoute.snapshot.paramMap.get('idSubSection'),
-        Data: JSON.stringify(data) */
+        
+        id: this.data.num,
+        respText: data[this.data.num],
+        eseguito: null,
+        risultato: null,
+        notes: null
+
+        /* DocumentId : +this.activatedRoute.snapshot.paramMap.get('documentId') */
       };
-      //this.xhrService.put({name: 'Contarina', url: 'forms'}, value).subscribe(data=>{});
+      this.xhrService.post(this.xhrService.getWebApi('Main').concat('Answers/SaveAnswers?userId=' + this.userId), value).subscribe(data=>{
+        console.log(data);
+      });
     });
   }
 
   nextStep(){
-    this.navController.navigateForward(['/form', this.qArea, this.categoria, this.index + 1]);
+    this.navController.navigateForward(['/form', this.activatedRoute.snapshot.paramMap.get('userId'), this.qArea, this.categoria, this.index + 1]);
   }
 
   previousStep(){
-    this.navController.navigateBack(['/form', this.qArea, this.categoria, this.index - 1]);
+    this.navController.navigateBack(['/form', this.activatedRoute.snapshot.paramMap.get('userId'), this.qArea, this.categoria, this.index - 1]);
   }
 
   back() {

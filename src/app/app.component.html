@@ -2,9 +2,26 @@
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>info@uell.com</ion-note>
+
+        <!-- <pre>{{auth | json}}</pre> -->
+
+        <!-- <ion-list id="inbox-list">
+          <ion-list-header>AddressBook App</ion-list-header>
+          <ion-note *ngIf="auth && auth?.isLogged && auth?.isLogged">{{auth.payload.account.email}}</ion-note>
+          <br>
+
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
+              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list> -->
+
+        
+        <ion-list id="inbox-list" *ngIf="data && data?.isLogged">
+          <ion-list-header>UELL</ion-list-header>
+          <ion-note *ngIf="data && data?.isLogged && data?.subject == 'supplier'">{{data?.data.email}}</ion-note>
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
@@ -14,14 +31,92 @@
           </ion-menu-toggle>
         </ion-list>
 
-        <!-- <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
+        <br>
+    
+    
+    
+        <!------------------- Account ------------------->
 
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
+        <!-- <ion-item-divider>
+          <ion-label>Account</ion-label>
+        </ion-item-divider>
+
+
+        <ion-list id="inbox-list" *ngIf="data && data?.isLogged">
+          <ion-menu-toggle auto-hide="false">
+            <ion-item lines="none" detail="false">
+              <ion-icon slot="start" ios="person-outline" md="person-sharp"></ion-icon>
+              <ion-label>{{data?.data.nome}} {{data?.data.cognome}}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle *ngIf="data && data?.isLogged " (click)="authService.logout()" auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/']" lines="none" detail="false">
+              <ion-icon slot="start" ios="lock-open-outline" md="lock-open-sharp"></ion-icon>
+              <ion-label>Logout</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle *ngIf="!data && !data?.isLogged" auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/supplier-login']" lines="none" detail="false">
+              <ion-icon slot="start" ios="lock-open-outline" md="lock-open-sharp"></ion-icon>
+              <ion-label>Login panificio</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
         </ion-list> -->
+
+        <br>
+    
+    
+    
+        <!------------------- Info ------------------->
+
+        <ion-item-divider>
+          <ion-label>Info</ion-label>
+        </ion-item-divider>
+
+
+        <ion-list id="inbox-list">
+          <ion-menu-toggle auto-hide="false">
+            <ion-item lines="none" detail="false">
+              <ion-icon slot="start" ios="code-outline" md="code-sharp"></ion-icon>
+              <ion-label>Versione: {{environment.appVersion}}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+    
+    
+    
+        <!------------------- Info ------------------->
+
+        <!-- <ion-list id="inbox-list" *ngIf="auth && auth?.isLogged">
+          <ion-menu-toggle auto-hide="false">
+            <ion-item lines="none" detail="false">
+              <div>
+                <div style="color: gray; font-size: 12px">
+                  Per informazioni relative all'applicazione, richiesta di modifiche o aggiunta di informazioni scrivere al'indirizzo email <a href="mailto:info@beltrame-group.com">info@beltrame-group.com</a>
+                </div>      
+                <br>      
+                <div style="color: gray; font-size: 12px">  
+                  <div>AFV ACCIAIERIE BELTRAME SPA viale della Scienza, 81 - 36100 Vicenza</div>
+                </div>      
+                <br>      
+                <div style="color: gray; font-size: 12px;">  
+                    <div>© 2020 - All Right Reserved</div>                    
+                </div>
+                <br>
+            </div>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list> -->
+
+        
+          
+      
+
+      <!-- <pre>{{data | json}}</pre> -->
+
+
 
       </ion-content>
     </ion-menu>

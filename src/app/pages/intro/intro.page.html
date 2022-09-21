@@ -1,15 +1,47 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true" style="text-align: center">
-  <div class="startscreen">
-    <div style="    margin: auto;">
+  <!-- <div class="startscreen"> -->
+  <div class="">
+    <div style="margin: auto;">
       <div>
-        <img class="logo" src="../../../assets/img/inttroLogo.png">
+        <!-- <img class="logo" src="../../../assets/img/inttroLogo.png"> -->
       </div>
 
       <p>
         Benvenuto!<br><br>
-        Grazie per aver acquistato Overplank.
+        Grazie per aver acquistato UELL
       </p>
-        <ion-button [routerLink]="['/area-selection']" shape="round" color="button4" class="plankBtnAction">Inizia</ion-button>
+
+      <div style="display: flex; flex-direction: column">
+        <!-- <ion-button [routerLink]="['/area-selection/', userId]" shape="round" color="button4" class="plankBtnAction">Inizia</ion-button> -->
+
+        <br><br><br><br>
+        <ion-button [routerLink]="['/area-selection/', userId]" shape="round" color="button4">Inizia</ion-button>
+
+        <br><br><br><br>
+      
+        <ion-button *ngIf="userId" (click)="cancel()">Cancella questionario <span *ngIf="userId">(Utente: {{userId}})</span></ion-button>
+        <ion-button *ngIf="userId && status" (click)="submit()">Ultima questionario ({{status.nReply}} risposte di {{status.nQuestion}})</ion-button>
+        <!-- <ion-button [disalbed]="status.status" (click)="submit()">Ultima questionario ({{status.nQuestion}}/{{status.nReply}})</ion-button> -->
+
+      </div>
+
+      <!-- <pre>{{status}}</pre> -->
+
+        <!-- <div style="color: white;">UserId: {{userId | json}}</div> -->     
+
+        <!-- <ion-button [routerLink]="['/login']" shape="round" expand="full" class="primaryBtn registerBtn" style="--background: lightgray">Accedi</ion-button> -->
     </div>
   </div>
 </ion-content>
