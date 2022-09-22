@@ -37,6 +37,8 @@ export class FormPage implements OnInit {
   public data: any;
   public form: FormGroup; 
 
+  public eseguitoanswerAllowedVals: any[] = [{value: 'Sì'}, {value: 'No'}];
+
   constructor(private navController: NavController, public activatedRoute: ActivatedRoute, public formBuilder: FormBuilder, private loaderService: LoaderService, private xhrService: XhrService, private dataService: DataService) {
     this.userId = +activatedRoute.snapshot.paramMap.get('userId');
     this.qArea = activatedRoute.snapshot.paramMap.get('qArea');
@@ -68,14 +70,15 @@ export class FormPage implements OnInit {
   }  
 
   formInit() {      
-    let obj={}; 
+    let obj={ eseguito: null, risultato: null }; 
     obj[this.data.num] = new FormControl({value: null});
     this.form = this.formBuilder.group(obj, /* { updateOn: "blur" } */ ); 
   } 
 
   formSeed(): void
   {
-    let obj={}; 
+    console.log(this.data);
+    let obj = this.data; 
     obj[this.data.num] = this.data.respText;
     this.form.patchValue(obj);
   }
@@ -87,8 +90,8 @@ export class FormPage implements OnInit {
         
         id: this.data.id,
         respText: data[this.data.num],
-        eseguito: null,
-        risultato: null,
+        eseguito: data.eseguito,
+        risultato: data.risultato,
         notes: null
 
         /* DocumentId : +this.activatedRoute.snapshot.paramMap.get('documentId') */

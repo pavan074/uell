@@ -41,6 +41,27 @@
         </ion-select>
       </ion-item>       
 
+      <br>
+
+      <ion-item *ngIf="qArea == 'Fitness'">
+        <ion-label position="floating" class="ion-text-wrap"><span style="font-size: 20px;">Eseguito</span></ion-label>
+        <ion-select formControlName="eseguito" placeholder="Seleziona un valore">
+          <ion-select-option *ngFor="let option of eseguitoanswerAllowedVals" value="{{option.value}}">{{option.value}}</ion-select-option>
+        </ion-select>
+      </ion-item>      
+
+      <br>    
+
+      <ion-item *ngIf="qArea == 'Fitness'">
+        <ion-label position="floating" class="ion-text-wrap"><span style="font-size: 20px;">Risultato</span></ion-label>
+        <ion-input placeholder="" formControlName="risultato" type="number"></ion-input>
+        <ng-container>
+            <div *ngIf="form.get('risultato').invalid && (form.get('risultato').dirty || form.get('risultato').touched)" class="error">
+                <p>{{formGetError('risultato')}}</p>
+            </div>
+        </ng-container>
+      </ion-item>       
+
       
       <!-- <div>{{data.questionText}}</div>
       <ion-item>
