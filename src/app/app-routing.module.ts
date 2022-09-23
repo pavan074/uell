@@ -11,23 +11,20 @@ import { AreaSelectionService } from './pages/area-selection/area-selection.page
 import { CategoriaSelectionService } from './pages/categoria-selection/categoria-selection.page';
 
 const routes: Routes = [
-  /* {
+  {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'intro',
     pathMatch: 'full'
   },
-  {
+  /* {
     path: 'folder/:id',
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   }, */
   {
-    path: '',
-    loadChildren: () => import('./pages/intro/intro.module').then(m => m.IntroPageModule)
-  },
-  {
     path: 'intro',
     loadChildren: () => import('./pages/intro/intro.module').then( m => m.IntroPageModule),
     //resolve: { data: IntroService }, 
+    canActivate: [AuthService]
   },
   {
     path: 'area-selection/:userId',

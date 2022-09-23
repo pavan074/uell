@@ -31,11 +31,12 @@ export class IntroService implements Resolve<any> {
 })
 export class IntroPage implements OnInit {
   
-  //public data: any[];  
+  public data: any[];  
   public userId: number;
   public status: any;
+  public colors = ['primary', 'secondary', 'tertiary', 'success', 'warning', 'danger', 'light', 'medium', 'dark', ];
 
-  constructor(private navController: NavController, public activatedRoute: ActivatedRoute, private activateService: ActivateService, private dataService: DataService, private xhrService: XhrService) {  
+  constructor(private navController: NavController, private loaderService: LoaderService, private notificationService: NotificationService, public activatedRoute: ActivatedRoute, private activateService: ActivateService, private dataService: DataService, private xhrService: XhrService) {  
     
   }
 
@@ -47,8 +48,10 @@ export class IntroPage implements OnInit {
       this.userId = data?.data;
       //alert(this.userId);
       if(this.userId){
-        this.xhrService.get(this.xhrService.getWebApi('Main').concat('Answers/GetAll?userId=' + this.userId)).subscribe(data=>{
-          //this.data = data;
+        this.loaderService.startLoader();
+        this.xhrService.get(this.xhrService.getWebApi('Main').concat('Answers/GetAll?userId=' + this.userId)).subscribe(data=>{ 
+          this.loaderService.stopLoader();
+          this.data = this.dataService.getArea(data);
           this.status = this.dataService.getStatus(data);
         });
       }
@@ -69,12 +72,32 @@ export class IntroPage implements OnInit {
 
   cancel() {
     this.activateService.removeAuth().then(data=>{
-      this.userId = null;
+      //this.userId = null;           
+      this.navController.navigateForward(['/activate']);
     });
   }
 
   submit() {
-    alert('Funzione non attiva');
+    this.xhrService.post(this.xhrService.getWebApi('Main').concat('Answers/CalcData?userId=' + this.userId), {}).subscribe(data=>{
+      this.notificationService.notify({title: 'CONFERMA', content: 'Questionario inoltrato correttamente'});
+    });
+  } 
+
+  getValueProgressBar(item: any) {
+    return item.nReply / item.nQuestion;
+  } 
+
+  getValue(item: any) {
+    return Math.round((item.nReply / item.nQuestion) * 100);
+  } 
+
+  navigate(item: any) {
+    //this.navController.navigateBack(['/area-selection', this.activatedRoute.snapshot.paramMap.get('userId')]);
+    if(item.qArea == 'Nutrizione'){   
+      this.navController.navigateForward(['/form', this.userId, item.qArea, 'null', 0]);
+    }else{      
+      this.navController.navigateForward(['/categoria-selection', this.userId, item.qArea]);
+    }
   }
 
 }

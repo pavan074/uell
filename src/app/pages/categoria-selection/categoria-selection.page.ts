@@ -56,7 +56,8 @@ export class CategoriaSelectionPage implements OnInit {
   }  
 
   back() {
-    this.navController.navigateBack(['/area-selection', this.activatedRoute.snapshot.paramMap.get('userId')]);
+    //this.navController.navigateBack(['/area-selection', this.activatedRoute.snapshot.paramMap.get('userId')]);
+    this.navController.navigateBack(['/intro']);
   }
   
 }

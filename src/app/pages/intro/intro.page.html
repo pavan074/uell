@@ -6,38 +6,93 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Home</ion-title>
+    <ion-title>Intro</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" style="text-align: center">
+
   <!-- <div class="startscreen"> -->
   <div class="">
-    <div style="margin: auto;">
+    <div style="margin: 0 20px;">
+  
+      <br>
+
       <div>
-        <!-- <img class="logo" src="../../../assets/img/inttroLogo.png"> -->
+        <img class="logo" src="../../../assets/img/inttroLogo.png">
+        <br><br>
+        <div style="font-size: 25px; font-weight: bold; margin-bottom: 10px;">Ciao Marco</div>
+        <div *ngIf="status">
+          <div style="margin-bottom: 10px; color: gray;">Il tuo profilo è completo al</div>
+          <div style="font-size: 40px; font-weight: bold; margin-bottom: 10px;">{{status.percentage}}%</div>
+        </div>
+        <div style="margin-bottom: 10px; color: gray;">Scegli una delle aree in questo elenco per completare il tuo profilo Uell</div>
       </div>
 
-      <p>
-        Benvenuto!<br><br>
-        Grazie per aver acquistato UELL
-      </p>
+      <br>
 
-      <div style="display: flex; flex-direction: column">
-        <!-- <ion-button [routerLink]="['/area-selection/', userId]" shape="round" color="button4" class="plankBtnAction">Inizia</ion-button> -->
+      
+      <div *ngIf="data" style="margin-top:30px; color: black"> 
+        
+        <div style="border-bottom: 1px solid lightgray; margin-bottom: 15px; padding-bottom: 5px;">Layout n.1</div>
+
+        <div (click)="navigate(item)" class="exerciseToolbar" *ngFor="let item of data; let i = index"> 
+          <div style="position: relative;">
+            <div style="position: absolute; z-index: 100; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"><b>{{item.qArea}}</b> &nbsp; <small>({{item.nReply}} di {{item.nQuestion}})</small></div>
+            <ion-progress-bar  class="progressBar" [color]="colors[i]" value="{{getValueProgressBar(item)}}"></ion-progress-bar> 
+          </div>
+        </div>
+
+        <br><br>
+        
+        <div style="border-bottom: 1px solid lightgray; margin-bottom: 15px; padding-bottom: 5px;">Layout n.2</div>
+
+        <ion-button (click)="navigate(item)" *ngFor="let item of data" shape="round" [color]="item.nReply == item.nQuestion ? 'primary' : 'button2'"  class="plankBtn20">
+          <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; width: 100%;">
+            <div style="margin-bottom: 5px;"><b>{{item.qArea}}</b></div> 
+            <div [ngClass]="['p' + getValue(item)]" class="c100 small circle">
+              <span class="circlePerc">{{getValue(item)}}%</span>
+              <div class="slice"> 
+                  <div class="bar"></div> 
+                  <div class="fill"></div>    
+              </div>
+            </div>
+          </div>
+        </ion-button>
 
         <br><br><br><br>
-        <ion-button [routerLink]="['/area-selection/', userId]" shape="round" color="button4">Inizia</ion-button>
+
+        <div style="border-bottom: 1px solid lightgray; margin-bottom: 15px; padding-bottom: 5px;">Layout n.3</div>
+
+        <div *ngFor="let item of data" (click)="navigate(item)" class="plankDay dayItem" style="display: flex; align-items: center">
+          <span><b>{{item.qArea}}</b> &nbsp; <small>({{item.nReply}} di {{item.nQuestion}})</small></span> 
+          <div [ngClass]="['p' + getValue(item)]" class="c100 small circle">
+            <span class="circlePerc">{{getValue(item)}}%</span>
+            <div class="slice"> 
+                <div class="bar"></div> 
+                <div class="fill"></div>    
+            </div>
+          </div>
+        </div>  
+
+        
+
+      </div>
+
+
+      <div style="display: flex; flex-direction: column">
+        <!-- <br><br><br><br>
+        <ion-button [routerLink]="['/area-selection/', userId]" shape="round" color="button4">Inizia</ion-button> -->
 
         <br><br><br><br>
       
-        <ion-button *ngIf="userId" (click)="cancel()">Cancella questionario <span *ngIf="userId">(Utente: {{userId}})</span></ion-button>
-        <ion-button *ngIf="userId && status" (click)="submit()">Ultima questionario ({{status.nReply}} risposte di {{status.nQuestion}})</ion-button>
-        <!-- <ion-button [disalbed]="status.status" (click)="submit()">Ultima questionario ({{status.nQuestion}}/{{status.nReply}})</ion-button> -->
-
+        <ion-button *ngIf="userId" (click)="cancel()">Cancella questionario <span *ngIf="userId"> (Utente: {{userId}})</span></ion-button>
+        <br>
+        <ion-button [disabled]="status.nReply < status.nQuestion" *ngIf="userId && status" (click)="submit()">Ultima questionario ({{status.nReply}} risposte di {{status.nQuestion}})</ion-button>
+        
       </div>
 
-      <!-- <pre>{{status}}</pre> -->
+      <!-- <pre>{{status | json}}</pre> -->
 
         <!-- <div style="color: white;">UserId: {{userId | json}}</div> -->     
 

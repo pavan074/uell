@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar translucent="true">
     <ion-buttons slot="start">
       <ion-button color="dark" (click)="back()">
@@ -9,13 +9,25 @@
       ACTIVATE
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
+
 
 <ion-content class="ion-padding register-supplier-page basePage formPage">
+  
+  <br>
+
+  <div style="text-align: center;">
+    <img class="logo" src="../../../assets/img/inttroLogo.png">
+    <br><br>
+    <div style="font-size: 25px; font-weight: bold; margin-bottom: 30px; color: gray;">BENVENUTO</div>
+    <div style="margin-bottom: 0px; color: gray;">Iniziamo a </div>
+    <div style="font-size: 40px; font-weight: bold; margin-bottom: 10px;">Conoscerci</div>
+  </div>
+
+  <br>
       
   <form [formGroup]="form" (ngSubmit)="submit()" *ngIf="form" novalidate class="fullWidth ion-padding">   
 
-  <h2 class="title">Attiva il tuo profilo</h2>
   <ion-list lines="full" class="ion-no-margin ion-no-padding">
 
     <ion-item *ngFor="let item of formList">
@@ -122,7 +134,7 @@
   </ion-list>
 
   <div class="ion-padding">
-    <ion-button shape="round" type="submit" expand="full" class="primaryBtn" [disabled]="disabled()">Conferma e prosegui</ion-button>
+    <ion-button color="button3" shape="round" type="submit" expand="full" class="primaryBtn" [disabled]="disabled()"><span style="font-weight: bold;">Prossimo Step</span></ion-button>
   </div>
 
 </form>
@@ -133,10 +145,10 @@
   
 
 
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+  <!-- <ion-fab vertical="bottom" horizontal="start" slot="fixed">
     <ion-fab-button (click)="back()" class="backBtn primaryBtn" routerDirection='back'>
       <ion-icon name="arrow-back"></ion-icon>
     </ion-fab-button>
-  </ion-fab>
+  </ion-fab> -->
 
 </ion-content>

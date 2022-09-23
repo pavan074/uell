@@ -12,7 +12,8 @@ export class DataService {
         return { 
             status: data.filter(x=> x.respText).length >= data.length ? true : false,
             nQuestion: data.length,
-            nReply: data.filter(x=> x.respText).length
+            nReply: data.filter(x=> x.respText).length,
+            percentage: Math.round((data.filter(x=> x.respText).length / data.length) * 100)
         }; 
     } 
 

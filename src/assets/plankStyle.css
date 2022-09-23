@@ -26,6 +26,11 @@
   width: 80%;
   font-size: 14px;
 }
+.plankBtn20 {
+  min-height: 52px;
+  width: 100%;
+  font-size: 14px;
+}
 .btnSelected {
   --ion-color-base: var(--ion-color-button1);
 }
