@@ -20,6 +20,7 @@ import { CacheService } from "ionic-cache";
 export class CategoriaSelectionService implements Resolve<any> {
   constructor(private loaderService: LoaderService, private xhrService: XhrService, private activateService: ActivateService) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    this.loaderService.startLoader();  
     let userId = route.params.userId;
     return this.xhrService.get(this.xhrService.getWebApi('Main').concat('Answers/GetAll?userId=' + userId));
   }
@@ -35,7 +36,7 @@ export class CategoriaSelectionPage implements OnInit {
   public data: any[];
   public qArea: string;
 
-  constructor(private navController: NavController, public activatedRoute: ActivatedRoute, private dataService: DataService) {
+  constructor(private navController: NavController, private loaderService: LoaderService, public activatedRoute: ActivatedRoute, private dataService: DataService) {
     this.qArea = activatedRoute.snapshot.paramMap.get('qArea');
   }
 
@@ -48,12 +49,17 @@ export class CategoriaSelectionPage implements OnInit {
   resolveData(){  
     this.activatedRoute.data.pipe(map(x=>x.data)).subscribe(data => {
       //console.log(data);      
+      this.loaderService.stopLoader();
       this.data = this.dataService.getCategoria(data, this.qArea);
       /* if(this.qArea == 'Nutrizione'){
         this.data = data.filter(x=> x.qArea == this.qArea);
       } */
     });
   }  
+
+  getValue(item: any) {
+    return Math.round((item.nReply / item.nQuestion) * 100);
+  } 
 
   back() {
     //this.navController.navigateBack(['/area-selection', this.activatedRoute.snapshot.paramMap.get('userId')]);

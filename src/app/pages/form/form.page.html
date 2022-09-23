@@ -1,17 +1,16 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="start">
-      <!-- <ion-back-button></ion-back-button> -->   
       <ion-button (click)="back()">
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>{{activatedRoute.snapshot.paramMap.get('categoria') != 'null' ? activatedRoute.snapshot.paramMap.get('categoria'): activatedRoute.snapshot.paramMap.get('qArea')}}</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content  [fullscreen]="true" style="text-align: center">    
 
@@ -24,6 +23,19 @@
       <h1 class="dayListTitle">{{activatedRoute.snapshot.paramMap.get('categoria')}}</h1>
     </div>
   </ion-header> -->
+
+  <div style="background-color: #FF634B;">
+    <br><br>
+    <img class="logo" style="width: 50%;" src="../../../assets/img/inttroLogo-trasparente.png">
+    <br><br><br>
+    <div style="font-size: 25px; font-weight: bold; margin-bottom: 10px; color: white;">
+      <span *ngIf="activatedRoute.snapshot.paramMap.get('qArea')">{{activatedRoute.snapshot.paramMap.get('qArea')}}</span> 
+      <span *ngIf="activatedRoute.snapshot.paramMap.get('categoria') != null"> / {{activatedRoute.snapshot.paramMap.get('categoria')}}</span>
+    </div>
+    <br>
+  </div>
+
+  <br><br>
 
   <div class="mainTitle">
     <!-- <h5>Parlaci della tua</h5> -->
@@ -78,12 +90,12 @@
     </form>
   </div>   
 
-  <br><br>
+  <br><br><br><br>  
  
   <div>
     <div style="display: flex;">
-      <ion-button [disabled]="+activatedRoute.snapshot.paramMap.get('index') <= 0" (click)="previousStep()" shape="round" color="button2"  class="plankBtn"><ion-icon name="arrow-back"></ion-icon></ion-button>
-      <ion-button [disabled]="+activatedRoute.snapshot.paramMap.get('index') >= dataSet.length - 1" (click)="nextStep()" shape="round" color="button2"  class="plankBtn"><ion-icon name="arrow-forward"></ion-icon></ion-button>
+      <ion-button [disabled]="+activatedRoute.snapshot.paramMap.get('index') <= 0" (click)="previousStep()" shape="round" color="button3"  class="plankBtn"><ion-icon name="arrow-back"></ion-icon></ion-button>
+      <ion-button [disabled]="+activatedRoute.snapshot.paramMap.get('index') >= dataSet.length - 1" (click)="nextStep()" shape="round" color="button3"  class="plankBtn"><ion-icon name="arrow-forward"></ion-icon></ion-button>
     </div>
   </div>  
 
@@ -95,5 +107,11 @@
   <!-- <pre>{{dataSet | json}}</pre> -->
   <!-- <pre>{{nextQuestion | json}}</pre> -->
   <!-- <pre>{{form.value | json}}</pre> -->
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="back()" class="backBtn primaryBtn" routerDirection='back'>
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   
 </ion-content>

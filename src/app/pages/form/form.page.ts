@@ -15,6 +15,7 @@ import { DataService } from 'src/app/service/data.service';
 export class FormService implements Resolve<any> {
   constructor(private loaderService: LoaderService, private xhrService: XhrService) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    this.loaderService.startLoader();  
     let userId = route.params.userId;
     return this.xhrService.get(this.xhrService.getWebApi('Main').concat('Answers/GetAll?userId=' + userId));
   }
@@ -53,6 +54,7 @@ export class FormPage implements OnInit {
   resolveData(){  
     this.activatedRoute.data.pipe(map(x=>x.data)).subscribe(data => {
       //console.log(data);
+      this.loaderService.stopLoader();
 
       //Data
       if(this.categoria != 'null'){
