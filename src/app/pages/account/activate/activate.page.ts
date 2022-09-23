@@ -44,7 +44,7 @@ export class ActivatePage implements OnInit {
         {ctrlName: 'lastName', displayName: 'COGNOME', inputType: 'text'},          
         {ctrlName: 'sex', displayName: 'SESSO', inputType: 'select', $optionsAsync: of([{title: 'Maschio', val: 'M'}, {title: 'Femmina', val: 'F'}])},
         {ctrlName: 'dataNascita', displayName: 'DATA DI NASCITA', inputType: 'date'},
-        {ctrlName: 'eta', displayName: 'ETA', inputType: 'number'},
+        //{ctrlName: 'eta', displayName: 'ETA', inputType: 'number'},
         {ctrlName: 'indirizzo', displayName: 'INDIRIZZO', inputType: 'text'},
         {ctrlName: 'city', displayName: 'CITTA\'', inputType: 'text'},
         {ctrlName: 'region', displayName: 'REGIONE', inputType: 'select', $optionsAsync: of([{"title":"Abruzzo","val":"Abruzzo"},{"title":"Basilicata","val":"Basilicata"},{"title":"Calabria","val":"Calabria"},{"title":"Campania","val":"Campania"},{"title":"Emilia-Romagna","val":"Emilia-Romagna"},{"title":"Friuli-Venezia Giulia","val":"Friuli-Venezia Giulia"},{"title":"Lazio","val":"Lazio"},{"title":"Liguria","val":"Liguria"},{"title":"Lombardia","val":"Lombardia"},{"title":"Marche","val":"Marche"},{"title":"Molise","val":"Molise"},{"title":"Piemonte","val":"Piemonte"},{"title":"Puglia","val":"Puglia"},{"title":"Sardegna","val":"Sardegna"},{"title":"Sicilia","val":"Sicilia"},{"title":"Toscana","val":"Toscana"},{"title":"Trentino-Alto Adige","val":"Trentino-Alto Adige"},{"title":"Umbria","val":"Umbria"},{"title":"osta","val":"Valle d'Aosta"},{"title":"Veneto","val":"Veneto"}])/* this.xhrService.post(this.xhrService.getWebApi('Main').concat('Account/GetRegions')) */},
@@ -75,21 +75,21 @@ export class ActivatePage implements OnInit {
   formInit(disabled: boolean) {
       var mxl: number = 50;
       var obj = {
-        firstName: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(mxl)]],
-        lastName: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(mxl)]],
+        firstName: [null, [Validators.required, Validators.maxLength(mxl)]],
+        lastName: [null, [Validators.required, Validators.maxLength(mxl)]],
         sex: [null, [Validators.required]],
         dataNascita: [null, [Validators.required]],
-        eta: [null, [Validators.required]],
-        indirizzo: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(mxl)]],
-        city: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(mxl)]],
+        //eta: [null, [Validators.required]],
+        indirizzo: [null, [Validators.required, Validators.maxLength(mxl)]],
+        city: [null, [Validators.required, Validators.maxLength(mxl)]],
         region: [null, [Validators.required]],
         nationality: [null, [Validators.required]],
         altezza: [null, [Validators.required]],
         weight: [null, [Validators.required]],
         cardiopatia: [null, [Validators.required]],
         email: [null, [Validators.required, Validators.email, Validators.maxLength(mxl)]],
-        uellCode: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(mxl)]],
-        fitnessCenter: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(mxl)]],
+        uellCode: [null, [Validators.required, Validators.maxLength(mxl)]],
+        fitnessCenter: [null, [Validators.required, Validators.maxLength(mxl)]],
         
         /* privacy_1: [false, [Validators.required]],
         privacy_2: [false, [Validators.required]] */
@@ -124,7 +124,15 @@ export class ActivatePage implements OnInit {
     }else{ */
       if(this.form.valid){
           console.log(this.form.value);
-          let value = this.form.value;          
+          let value = this.form.value;
+
+          //------------
+          var currentTime = new Date();
+          var currentYear = currentTime.getFullYear();          
+          var userYear = moment(value.dataNascita).year();
+          value.eta = currentYear - userYear;
+          //------------        
+
           this.loaderService.startLoader();
           this.xhrService.post(this.xhrService.getWebApi('Main').concat('Account/Activate'), value).subscribe(data => { 
             this.loaderService.stopLoader();
