@@ -30,7 +30,7 @@
     <br><br><br>
     <div style="font-size: 25px; font-weight: bold; margin-bottom: 10px; color: white;">
       <span *ngIf="activatedRoute.snapshot.paramMap.get('qArea')">{{activatedRoute.snapshot.paramMap.get('qArea')}}</span> 
-      <span *ngIf="activatedRoute.snapshot.paramMap.get('categoria') != null"> / {{activatedRoute.snapshot.paramMap.get('categoria')}}</span>
+      <span *ngIf="activatedRoute.snapshot.paramMap.get('categoria') != 'null'"> / {{activatedRoute.snapshot.paramMap.get('categoria')}}</span>
     </div>
     <br>
   </div>
