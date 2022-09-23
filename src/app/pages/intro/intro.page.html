@@ -21,7 +21,7 @@
       <div>
         <img class="logo" src="../../../assets/img/inttroLogo.png">
         <br><br>
-        <div style="font-size: 25px; font-weight: bold; margin-bottom: 10px;">Ciao Marco</div>
+        <div style="font-size: 25px; font-weight: bold; margin-bottom: 10px;">Ciao {{activate?.data?.firstName}}</div>
         <div *ngIf="status">
           <div style="margin-bottom: 10px; color: gray;">Il tuo profilo è completo al</div>
           <div style="font-size: 40px; font-weight: bold; margin-bottom: 10px;">{{status.percentage}}%</div>
@@ -86,9 +86,9 @@
 
         <br><br><br><br>
       
-        <ion-button *ngIf="userId" (click)="cancel()">Cancella questionario <span *ngIf="userId"> (Utente: {{userId}})</span></ion-button>
+        <ion-button *ngIf="activate" (click)="cancel()">Cancella questionario <span *ngIf="activate"> (Utente: {{activate.userId}})</span></ion-button>
         <br>
-        <ion-button [disabled]="status.nReply < status.nQuestion" *ngIf="userId && status" (click)="submit()">Ultima questionario ({{status.nReply}} risposte di {{status.nQuestion}})</ion-button>
+        <ion-button [disabled]="status.nReply < status.nQuestion" *ngIf="activate && status" (click)="submit()">Ultima questionario ({{status.nReply}} risposte di {{status.nQuestion}})</ion-button>
         
       </div>
 

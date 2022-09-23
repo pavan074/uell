@@ -128,7 +128,7 @@ export class ActivatePage implements OnInit {
           this.loaderService.startLoader();
           this.xhrService.post(this.xhrService.getWebApi('Main').concat('Account/Activate'), value).subscribe(data => { 
             this.loaderService.stopLoader();
-            this.activateService.setAuth(null, data).then((data) => { 
+            this.activateService.setAuth(null, value, data).then((data) => { 
               console.log('ActivateService | ', 'setValue | ', data);
               this.redirect();              
             });

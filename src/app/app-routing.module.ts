@@ -5,7 +5,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { ActivateService as AuthService } from './service/activate.service';
 
 //Resolver
-//import { IntroService } from './pages/intro/intro.page';
+import { IntroService } from './pages/intro/intro.page';
 import { FormService } from './pages/form/form.page';
 import { AreaSelectionService } from './pages/area-selection/area-selection.page';
 import { CategoriaSelectionService } from './pages/categoria-selection/categoria-selection.page';
@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'intro',
     loadChildren: () => import('./pages/intro/intro.module').then( m => m.IntroPageModule),
-    //resolve: { data: IntroService }, 
+    resolve: { data: IntroService }, 
     canActivate: [AuthService]
   },
   {

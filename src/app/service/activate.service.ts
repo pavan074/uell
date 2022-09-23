@@ -16,7 +16,7 @@ export class ActivateService implements CanActivate {
     public storageKey: string = 'activate';   
 
     constructor(private router: Router, private storage: Storage) {
-        this.auth$ = <BehaviorSubject<any>> new BehaviorSubject<any>({isLogged: false, subject: null, data: null});
+        this.auth$ = <BehaviorSubject<any>> new BehaviorSubject<any>({isLogged: false, subject: null, data: null, userId: null});
         this.getAuth().then((data) => {
             if(data){
                 this.auth$.next(data);
@@ -28,11 +28,12 @@ export class ActivateService implements CanActivate {
 
     /* -------------------------- Get Set auth -------------------------- */
 
-    async setAuth(subject: string, data: any): Promise<any>{
+    async setAuth(subject: string, data: any, userId: number): Promise<any>{
         let obj = { 
             isLogged: true, 
             subject: subject,
-            data: data 
+            data: data,
+            userId: userId
         };
         this.auth$.next(obj);
         return await this.storage.set(this.storageKey, obj);

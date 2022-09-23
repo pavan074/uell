@@ -15,14 +15,27 @@ import { CacheService } from "ionic-cache";
 
 
 
-/* @Injectable({providedIn: 'root'})
+@Injectable({providedIn: 'root'})
 export class IntroService implements Resolve<any> {
   constructor(private loaderService: LoaderService, private xhrService: XhrService, private activateService: ActivateService) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    let userId = route.params.userId;
-    return this.xhrService.get(this.xhrService.getWebApi('Main').concat('Answers/GetAll?userId=' + userId));
+    
+    return from(this.activateService.getAuth()).pipe(
+      flatMap((activate: any) => {  
+        //console.log(activate);
+        this.loaderService.startLoader();          
+        return forkJoin([
+          of(activate),
+          this.xhrService.get(this.xhrService.getWebApi('Main').concat('Answers/GetAll?userId=' + activate.userId))
+        ]).pipe(map(x=> { return { 
+          activate: x[0], 
+          data: x[1]
+        } }))
+      })
+    );
+
   }
-} */
+}
 
 @Component({
   selector: 'app-intro',
@@ -31,8 +44,8 @@ export class IntroService implements Resolve<any> {
 })
 export class IntroPage implements OnInit {
   
-  public data: any[];  
-  public userId: number;
+  public data: any[];   
+  public activate: any;
   public status: any;
   public colors = ['primary', 'secondary', 'tertiary', 'success', 'warning', 'danger', 'light', 'medium', 'dark', ];
 
@@ -42,43 +55,28 @@ export class IntroPage implements OnInit {
 
   ngOnInit() {}
 
-  ionViewWillEnter(){
-    this.activateService.getAuth().then((data) => {
-      console.log('Activate | ', data?.data);
-      this.userId = data?.data;
-      //alert(this.userId);
-      if(this.userId){
-        this.loaderService.startLoader();
-        this.xhrService.get(this.xhrService.getWebApi('Main').concat('Answers/GetAll?userId=' + this.userId)).subscribe(data=>{ 
-          this.loaderService.stopLoader();
-          this.data = this.dataService.getArea(data);
-          this.status = this.dataService.getStatus(data);
-        });
-      }
-    });
-  }
-
-  /* ngOnInit() {
+  ionViewWillEnter() {
     this.resolveData();  
   }
 
   resolveData(){  
     this.activatedRoute.data.pipe(map(x=>x.data)).subscribe(data => {
-      //console.log(data);
-      this.data = data;
-      this.status = this.dataService.getStatus(data);
+      console.log(data);
+      this.loaderService.stopLoader();
+      this.activate = data.activate;
+      this.data = this.dataService.getArea(data.data);
+      this.status = this.dataService.getStatus(data.data);
     });
-  }  */ 
+  }  
 
   cancel() {
     this.activateService.removeAuth().then(data=>{
-      //this.userId = null;           
       this.navController.navigateForward(['/activate']);
     });
   }
 
   submit() {
-    this.xhrService.post(this.xhrService.getWebApi('Main').concat('Answers/CalcData?userId=' + this.userId), {}).subscribe(data=>{
+    this.xhrService.post(this.xhrService.getWebApi('Main').concat('Answers/CalcData?userId=' + this.activate.userId), {}).subscribe(data=>{
       this.notificationService.notify({title: 'CONFERMA', content: 'Questionario inoltrato correttamente'});
     });
   } 
@@ -94,10 +92,29 @@ export class IntroPage implements OnInit {
   navigate(item: any) {
     //this.navController.navigateBack(['/area-selection', this.activatedRoute.snapshot.paramMap.get('userId')]);
     if(item.qArea == 'Nutrizione'){   
-      this.navController.navigateForward(['/form', this.userId, item.qArea, 'null', 0]);
+      this.navController.navigateForward(['/form', this.activate.userId, item.qArea, 'null', 0]);
     }else{      
-      this.navController.navigateForward(['/categoria-selection', this.userId, item.qArea]);
+      this.navController.navigateForward(['/categoria-selection', this.activate.userId, item.qArea]);
     }
   }
 
 }
+
+
+
+
+/* ionViewWillEnter(){
+  this.activateService.getAuth().then((data) => {
+    console.log('Activate | ', data?.data);
+    this.userId = data?.data;
+    //alert(this.userId);
+    if(this.userId){
+      this.loaderService.startLoader();
+      this.xhrService.get(this.xhrService.getWebApi('Main').concat('Answers/GetAll?userId=' + this.userId)).subscribe(data=>{ 
+        this.loaderService.stopLoader();
+        this.data = this.dataService.getArea(data);
+        this.status = this.dataService.getStatus(data);
+      });
+    }
+  });
+} */
