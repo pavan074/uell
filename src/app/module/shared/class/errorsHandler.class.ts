@@ -90,6 +90,8 @@ export class ErrorsHandler implements ErrorHandler {
             }
         }
 
+        alert(JSON.stringify(errMessage));
+
         let value = {
             message: errMessage,
             sender: null,

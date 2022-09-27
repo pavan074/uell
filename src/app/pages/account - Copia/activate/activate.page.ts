@@ -24,7 +24,7 @@ export class ActivatePage implements OnInit {
   data: any;
   form: FormGroup;
   formList: any[];
-  //$regionList = this.xhrService.post(this.xhrService.getWebApi('Main').concat('Account/GetRegions'))
+  $regionList = this.xhrService.post(this.xhrService.getWebApi('Main').concat('Account/GetRegions'))
 
   constructor(
       private loaderService: LoaderService, 

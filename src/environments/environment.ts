@@ -4,7 +4,7 @@ export const environment = {
   appVersion: '1.0',
   networkType: 'internal',
   error: {
-      trace: false,
+      trace: true,
       pageRedirect: false
   },
   production: false,

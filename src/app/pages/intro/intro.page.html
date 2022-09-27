@@ -87,9 +87,9 @@
 
         <br><br><br><br>
       
-        <ion-button *ngIf="activate" (click)="cancel()">Cancella questionario <span *ngIf="activate"> (Utente: {{activate.userId}})</span></ion-button>
+        <ion-button *ngIf="activate" (click)="cancel()">Cancella</ion-button>
         <br>
-        <ion-button [disabled]="status.nReply < status.nQuestion" *ngIf="activate && status" (click)="submit()">Ultima questionario ({{status.nReply}} risposte di {{status.nQuestion}})</ion-button>
+        <ion-button [disabled]="status.nReply < status.nQuestion" *ngIf="activate && status" (click)="submit()">Invia ({{status.nReply}} risposte di {{status.nQuestion}})</ion-button>
         
       </div>
 
